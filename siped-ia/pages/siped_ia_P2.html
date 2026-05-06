@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPED-IA: Bitácora de Innovación La Salle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;800&display=swap');
+
+        :root {
+            --blue-lasalle: #002855;
+            --gold-lasalle: #facc15;
+            --accent-cyan: #06b6d4;
+        }
+
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #facc15 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-border {
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.1);
+        }
+
+        .step-active {
+            border-left: 4px solid var(--gold-lasalle);
+            background: rgba(250, 204, 21, 0.05);
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 100px 20px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--gold-lasalle), var(--accent-cyan));
+            z-index: 100;
+        }
+
+        /* Scanline effect */
+        .scanline {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 40, 85, 0.1) 50%);
+            background-size: 100% 4px;
+            position: fixed;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.2;
+        }
+
+        .foda-card {
+            transition: transform 0.3s ease;
+        }
+
+        .foda-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="progress" class="progress-bar" style="width: 0%"></div>
+    <div class="scanline"></div>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="fixed top-0 w-full z-[100] p-4 flex justify-between items-center glass-panel">
+        <div class="flex items-center gap-3">
+            <div
+                class="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center text-blue-900 font-bold shadow-lg shadow-yellow-400/20">
+                S-IA</div>
+            <span class="font-extrabold tracking-tighter text-xl">SIPED <span class="text-yellow-400">IA</span></span>
+        </div>
+        <div class="hidden lg:flex gap-6 text-xs font-bold uppercase tracking-widest">
+            <a href="#inicio" class="hover:text-yellow-400 transition">Inicio</a>
+            <a href="#problema" class="hover:text-yellow-400 transition">Proyecto</a>
+            <a href="#metodologia" class="hover:text-yellow-400 transition">Metodología</a>
+            <a href="#foda" class="hover:text-yellow-400 transition">Estrategia</a>
+            <a href="#arquitectura" class="hover:text-yellow-400 transition">Tecnología</a>
+            <a href="#etica" class="hover:text-yellow-400 transition">Ética</a>
+        </div>
+        <a href="https://github.com/miriescobar47-wq/EVIDENCIA.git" target="_blank"
+            class="bg-slate-800 p-2 px-4 rounded-full text-xs font-bold hover:bg-slate-700 transition">
+            <i class="fa-brands fa-github mr-2"></i> Repositorio
+        </a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="flex flex-col justify-center items-center text-center relative">
+        <div class="z-10 max-w-4xl">
+            <span
+                class="inline-block py-1 px-3 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-400 text-xs font-bold mb-6 uppercase tracking-widest">Colegio
+                La Salle La Paz - Gestión 2026</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                Siped-IA: El Futuro de la <br><span class="gradient-text">Decisión Pedagógica</span>
+            </h1>
+            <p class="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
+                Implementación de modelos <strong>Transformer</strong> para la sistematización de datos cualitativos en
+                educación primaria. Humanizando la tecnología a través del modelo TPACK.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="glass-panel p-4 rounded-2xl flex flex-col items-center">
+                    <span class="text-yellow-400 font-bold">Jaqueline Mollinedo</span>
+                    <span class="text-[10px] uppercase text-slate-500 tracking-widest">Maestrante</span>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl flex flex-col items-center">
+                    <span class="text-yellow-400 font-bold">Ilianoff Choque</span>
+                    <span class="text-[10px] uppercase text-slate-500 tracking-widest">Maestrante</span>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl flex flex-col items-center">
+                    <span class="text-yellow-400 font-bold">Miriam Zambrana</span>
+                    <span class="text-[10px] uppercase text-slate-500 tracking-widest">Maestrante</span>
+                </div>
+                <div class="glass-panel p-4 rounded-2xl flex flex-col items-center">
+                    <span class="text-yellow-400 font-bold">Juana Huanaco</span>
+                    <span class="text-[10px] uppercase text-slate-500 tracking-widest">Maestrante</span>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 animate-bounce text-slate-500">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- EL PROBLEMA -->
+    <section id="problema" class="bg-slate-950/40">
+        <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold mb-6 italic border-l-4 border-yellow-400 pl-4">1. El Desafío Educativo
+                </h2>
+                <p class="text-slate-300 mb-6 leading-relaxed">
+                    En el nivel primario, se evidencia una <strong>limitada integración de datos</strong> en la toma de
+                    decisiones. Aunque se genera información constante (calificaciones, registros, observaciones
+                    cualitativas), esta no se sistematiza estratégicamente.
+                </p>
+                <blockquote class="border-l-2 border-slate-700 pl-6 py-2 mb-6 italic text-slate-400 text-sm">
+                    "La ética de la IA debe guiar a las sociedades a afrontar de manera responsable los efectos en los
+                    seres humanos..." <br>— <span class="text-yellow-400">UNESCO (2021)</span>
+                </blockquote>
+                <div class="grid grid-cols-2 gap-4 mt-8">
+                    <div class="p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+                        <h4 class="text-red-400 font-bold text-sm mb-1 uppercase">Causa</h4>
+                        <p class="text-xs text-slate-400">Decisiones basadas solo en percepción e intuición docente.</p>
+                    </div>
+                    <div class="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
+                        <h4 class="text-yellow-400 font-bold text-sm mb-1 uppercase">Efecto</h4>
+                        <p class="text-xs text-slate-400">Intervenciones pedagógicas tardías y escasa personalización.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-panel p-8 rounded-3xl glow-border">
+                <h3 class="text-xl font-bold mb-6 text-center">Pregunta de Investigación (Data-Driven)</h3>
+                <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-700 text-center">
+                    <p class="text-lg font-semibold text-blue-300">
+                        ¿Cómo puede un sistema basado en IA analizar datos educativos y generar recomendaciones
+                        personalizadas para fortalecer la toma de decisiones docentes en el Colegio La Salle La Paz?
+                    </p>
+                </div>
+                <div class="mt-8 flex justify-center gap-12">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-yellow-400">100%</div>
+                        <div class="text-[10px] uppercase text-slate-500">Enfoque Humano</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-cyan-400">LLM</div>
+                        <div class="text-[10px] uppercase text-slate-500">Arquitectura</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-emerald-400">TPACK</div>
+                        <div class="text-[10px] uppercase text-slate-500">Metodología</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MATRIZ DE IMPACTO -->
+    <section id="metodologia">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Matriz de Impacto <span
+                    class="text-yellow-400">Metodológico</span></h2>
+            <div class="overflow-x-auto rounded-2xl border border-slate-800">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-900">
+                        <tr>
+                            <th class="p-4 text-xs uppercase text-slate-400">Dimensión</th>
+                            <th class="p-4 text-xs uppercase text-slate-400">Situación Actual</th>
+                            <th class="p-4 text-xs uppercase text-slate-400">Propuesta IA</th>
+                            <th class="p-4 text-xs uppercase text-slate-400">Impacto Esperado</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800 bg-slate-900/30">
+                        <tr>
+                            <td class="p-4 font-bold text-sm">Planificación</td>
+                            <td class="p-4 text-xs text-slate-400 italic">Basada en intuición</td>
+                            <td class="p-4 text-xs text-blue-300">Uso de datos analizados</td>
+                            <td class="p-4 text-xs text-emerald-400">Contextualización precisa</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-sm">Retroalimentación</td>
+                            <td class="p-4 text-xs text-slate-400 italic">General y tardía</td>
+                            <td class="p-4 text-xs text-blue-300">Inmediata y personalizada</td>
+                            <td class="p-4 text-xs text-emerald-400">Mejora en el aprendizaje</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-sm">Rol Docente</td>
+                            <td class="p-4 text-xs text-slate-400 italic">Transmisor</td>
+                            <td class="p-4 text-xs text-blue-300">Mediador y Analista</td>
+                            <td class="p-4 text-xs text-emerald-400">Profesional reflexivo</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-sm">Atención Dificultades</td>
+                            <td class="p-4 text-xs text-slate-400 italic">Intervención reactiva</td>
+                            <td class="p-4 text-xs text-blue-300">Detección temprana</td>
+                            <td class="p-4 text-xs text-emerald-400">Reducción de rezagos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FODA ESTRATÉGICO -->
+    <section id="foda" class="bg-slate-950/40">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Análisis Estratégico <span class="text-cyan-400">FODA
+                    Enriquecido</span></h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Fortalezas -->
+                <div class="foda-card p-6 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-blue-950"><i
+                                class="fa-solid fa-plus"></i></div>
+                        <h4 class="font-bold text-emerald-400 uppercase tracking-tighter">Fortalezas</h4>
+                    </div>
+                    <ul class="text-[11px] text-slate-400 space-y-2">
+                        <li>• Solidez Metodológica TPACK.</li>
+                        <li>• Arquitectura LLM pertinente.</li>
+                        <li>• Marco Ético UNESCO 2021.</li>
+                        <li>• Viabilidad en Colegio La Salle.</li>
+                    </ul>
+                </div>
+                <!-- Debilidades -->
+                <div class="foda-card p-6 bg-red-500/10 border border-red-500/30 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center text-blue-950"><i
+                                class="fa-solid fa-minus"></i></div>
+                        <h4 class="font-bold text-red-400 uppercase tracking-tighter">Debilidades</h4>
+                    </div>
+                    <ul class="text-[11px] text-slate-400 space-y-2">
+                        <li>• Información fragmentada.</li>
+                        <li>• Calidad de datos (GIGO).</li>
+                        <li>• Escalabilidad limitada (muestra).</li>
+                        <li>• Curva de aprendizaje técnica.</li>
+                    </ul>
+                </div>
+                <!-- Oportunidades -->
+                <div class="foda-card p-6 bg-blue-500/10 border border-blue-500/30 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-blue-950"><i
+                                class="fa-solid fa-bolt"></i></div>
+                        <h4 class="font-bold text-blue-400 uppercase tracking-tighter">Oportunidades</h4>
+                    </div>
+                    <ul class="text-[11px] text-slate-400 space-y-2">
+                        <li>• Impulso Global IA Ética.</li>
+                        <li>• Transformación Digital LMS.</li>
+                        <li>• Demanda por personalización.</li>
+                        <li>• Learning Analytics (Siemens).</li>
+                    </ul>
+                </div>
+                <!-- Amenazas -->
+                <div class="foda-card p-6 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center text-blue-950"><i
+                                class="fa-solid fa-triangle-exclamation"></i></div>
+                        <h4 class="font-bold text-yellow-400 uppercase tracking-tighter">Amenazas</h4>
+                    </div>
+                    <ul class="text-[11px] text-slate-400 space-y-2">
+                        <li>• Vacío normativo local.</li>
+                        <li>• Resistencia cultural/tecnofobia.</li>
+                        <li>• Obsolescencia acelerada IA.</li>
+                        <li>• Riesgos de privacidad menores.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ESTRATEGIA DE ÉXITO -->
+            <div class="mt-12 glass-panel p-8 rounded-3xl border-l-4 border-emerald-500">
+                <div class="flex items-start gap-6">
+                    <div
+                        class="bg-emerald-500 text-blue-950 p-4 rounded-xl font-black text-2xl uppercase tracking-tighter -rotate-90">
+                        Éxito</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 uppercase tracking-widest text-emerald-400">Liderazgo
+                            Tecnopedagógico (F+O)</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Convertiremos el modelo <strong>TPACK</strong> y el uso de <strong>Transformers</strong> en
+                            un sello de calidad La Sallista. No solo analizaremos datos, crearemos un Observatorio de
+                            Datos de Primaria para generar reportes predictivos, posicionando al colegio como pionero en
+                            Bolivia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARQUITECTURA TECNOLÓGICA -->
+    <section id="arquitectura">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center italic">Matriz Tecnológica <span
+                    class="text-cyan-400">SIPED-IA</span></h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 glass-panel rounded-3xl border-t-2 border-yellow-400">
+                    <i class="fa-solid fa-brain text-4xl text-yellow-400 mb-6"></i>
+                    <h4 class="font-bold mb-4">Núcleo Lógico</h4>
+                    <p class="text-xs text-slate-500 mb-4">Gemini 1.5 Flash / Pro</p>
+                    <p class="text-sm text-slate-300 italic">Motor de IA que evalúa evidencias, asigna notas sugeridas y
+                        redacta recomendaciones personalizadas.</p>
+                </div>
+                <div class="p-8 glass-panel rounded-3xl border-t-2 border-cyan-400">
+                    <i class="fa-solid fa-code text-4xl text-cyan-400 mb-6"></i>
+                    <h4 class="font-bold mb-4">Entorno & Interfaz</h4>
+                    <p class="text-xs text-slate-500 mb-4">Lovable + Streamlit</p>
+                    <p class="text-sm text-slate-300 italic">Panel interactivo para el docente y estudiante, integrando
+                        la lógica de reporte sin intervención manual constante.</p>
+                </div>
+                <div class="p-8 glass-panel rounded-3xl border-t-2 border-emerald-400">
+                    <i class="fa-solid fa-database text-4xl text-emerald-400 mb-6"></i>
+                    <h4 class="font-bold mb-4">Base de Conocimiento</h4>
+                    <p class="text-xs text-slate-500 mb-4">RAG (LangChain)</p>
+                    <p class="text-sm text-slate-300 italic">Criterios de evaluación y rúbricas oficiales (PDF/JSON) que
+                        guían a la IA para calificar de forma objetiva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OBJETIVOS SMART -->
+    <section id="objetivos" class="bg-blue-950/20">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Objetivos <span class="text-yellow-400">SMART</span></h2>
+                <div class="h-1 w-20 bg-yellow-400 mx-auto"></div>
+            </div>
+            <div class="space-y-4">
+                <div class="glass-panel p-6 rounded-2xl border-l-4 border-yellow-400">
+                    <span class="text-[10px] uppercase font-bold text-yellow-400 tracking-widest">General</span>
+                    <p class="font-bold text-lg mt-1 italic">Diseñar un sistema de IA para analizar datos educativos de
+                        primaria, mejorando la toma de decisiones pedagógicas en el Colegio La Salle La Paz con enfoque
+                        ético.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                    <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-800">
+                        <h5 class="text-xs font-bold text-slate-500 mb-2 uppercase">OE1</h5>
+                        <p class="text-sm">Diagnosticar el uso actual de datos en el nivel primario.</p>
+                    </div>
+                    <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-800">
+                        <h5 class="text-xs font-bold text-slate-500 mb-2 uppercase">OE2</h5>
+                        <p class="text-sm">Seleccionar arquitectura IA para datos cualitativos.</p>
+                    </div>
+                    <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-800">
+                        <h5 class="text-xs font-bold text-slate-500 mb-2 uppercase">OE3</h5>
+                        <p class="text-sm">Evaluar implicaciones éticas y privacidad.</p>
+                    </div>
+                    <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-800">
+                        <h5 class="text-xs font-bold text-slate-500 mb-2 uppercase">OE4</h5>
+                        <p class="text-sm">Diseñar y validar el prototipo SIPED-IA.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ÉTICA -->
+    <section id="etica">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center uppercase tracking-widest text-emerald-400">Protocolo Ético
+                de Blindaje</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-panel p-8 rounded-3xl">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-3"><i
+                            class="fa-solid fa-user-shield text-emerald-400"></i> Compromisos Éticos</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-center">
+                            <div
+                                class="w-6 h-6 bg-emerald-500/20 text-emerald-400 rounded flex items-center justify-center">
+                                <i class="fa-solid fa-check text-[10px]"></i></div>
+                            <span class="text-sm text-slate-300">Anonimización y protección de datos de menores.</span>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <div
+                                class="w-6 h-6 bg-emerald-500/20 text-emerald-400 rounded flex items-center justify-center">
+                                <i class="fa-solid fa-check text-[10px]"></i></div>
+                            <span class="text-sm text-slate-300">Eliminación de sesgos en observaciones docentes.</span>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <div
+                                class="w-6 h-6 bg-emerald-500/20 text-emerald-400 rounded flex items-center justify-center">
+                                <i class="fa-solid fa-check text-[10px]"></i></div>
+                            <span class="text-sm text-slate-300">No estigmatización: La IA no etiqueta, solo
+                                apoya.</span>
+                        </div>
+                        <div class="flex gap-4 items-center">
+                            <div
+                                class="w-6 h-6 bg-yellow-500/20 text-yellow-400 rounded flex items-center justify-center">
+                                <i class="fa-solid fa-hand text-[10px]"></i></div>
+                            <span class="text-sm font-bold text-yellow-400">Supervisión Humana: El docente tiene la
+                                decisión final.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-3xl group">
+
+                    <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                        alt="Vista 360"
+                        class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 flex items-center justify-center bg-blue-900/40">
+                        <a href="https://360photocam.com/online-viewer/" target="_blank"
+                            class="bg-yellow-400 text-blue-950 p-4 px-8 rounded-full font-black uppercase tracking-widest hover:bg-yellow-300 transition">Explorar
+                            Entorno 360°</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="p-12 glass-panel border-t border-slate-800">
+        <div class="container mx-auto text-center">
+            <div class="flex justify-center gap-8 mb-8">
+                <img src="https://www.lasalle.edu.bo/images/logos/logo_ls.png" alt="Logo La Salle"
+                    class="h-12 opacity-50 grayscale hover:grayscale-0 transition cursor-pointer">
+            </div>
+            <p class="text-slate-500 text-xs mb-4 uppercase tracking-[0.3em]">Maestría en Docencia Técnico Sociedad
+                Global • 2024</p>
+            <div class="text-[10px] text-slate-600 space-y-1">
+                <p>Jaqueline Mollinedo • Ilianoff Choque • Miriam Zambrana • Juana Huanaco</p>
+                <p>UNESCO 2021 Compliance • TPACK Framework Integrated</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Progress Bar Logic
+        window.onscroll = function () {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progress").style.width = scrolled + "%";
+        };
+
+        // Smooth Scroll Implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    
+    <!-- Botón Volver al Dashboard -->
+    <a href="../index.html" class="fixed bottom-8 right-8 bg-yellow-400 text-blue-950 font-black px-6 py-3 rounded-full shadow-lg shadow-yellow-400/20 hover:scale-105 transition-transform z-50 flex items-center gap-2">
+        <i class="fa-solid fa-arrow-left"></i> Volver al Simulador
+    </a>
+</body>
+
+</html>
