@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPED-IA - Diseño y Simulación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #818CF8;
+            --secondary: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-main: #334155;
+            --text-muted: #64748B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #F1F5F9;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #312E81 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: pulse 15s infinite linear;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #CBD5E1;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: -3rem auto 2rem auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid var(--primary);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Lists */
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Tags / Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge.low { background: #D1FAE5; color: #065F46; }
+        .badge.medium { background: #FEF3C7; color: #92400E; }
+        .badge.high { background: #FEE2E2; color: #991B1B; }
+        .badge.neutral { background: #E0E7FF; color: #3730A3; }
+
+        /* Simulation Section / Glassmorphism */
+        .simulation-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .simulation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .student-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #A78BFA, #818CF8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .metric-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-card.warning { border-left-color: var(--warning); }
+        .metric-card.success { border-left-color: var(--secondary); }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .alert-box {
+            background: #FFFBEB;
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-box {
+            background: #EFF6FF;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .recommendation-box h4 {
+            color: #1D4ED8;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SIPED-IA</h1>
+        <p>Sistema Inteligente de Procesamiento Educativo de Datos<br>Colegio La Salle La Paz - Nivel Primario</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Sección 1 -->
+        <div class="card" style="border-left-color: #8B5CF6;">
+            <h2>🧠 1. Análisis de Datos Educativos</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Procesamiento Cuantitativo</h3>
+                    <p>Algoritmos analizan calificaciones, resultados estandarizados, métricas de fluidez lectora (PPM) y asistencia.</p>
+                </div>
+                <div>
+                    <h3>Procesamiento Cualitativo</h3>
+                    <p>Mediante Procesamiento de Lenguaje Natural (NLP), el sistema interpreta bitácoras docentes, detectando patrones de conducta y estado socioemocional.</p>
+                </div>
+            </div>
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Detección de Tendencias</h3>
+            <span class="badge high">Rezago</span> <span style="font-size: 0.9rem;">Curva descendente o bajo los hitos esperados.</span><br>
+            <span class="badge medium">Estancamiento</span> <span style="font-size: 0.9rem;">Sin progresión a pesar de la instrucción.</span><br>
+            <span class="badge low">Avance</span> <span style="font-size: 0.9rem;">Evolución positiva gradual o acelerada.</span>
+        </div>
+
+        <!-- Sección 2 -->
+        <div class="card" style="border-left-color: #EF4444;">
+            <h2>🔍 2. Identificación de Dificultades</h2>
+            <p style="margin-bottom: 1rem;">SIPED-IA detecta barreras para el aprendizaje basadas en evidencias del aula, sin emitir diagnósticos clínicos.</p>
+            <ul>
+                <li><strong>Lectoescritura:</strong> Detecta problemas fonológicos (inversión de letras) o de comprensión.</li>
+                <li><strong>Matemática:</strong> Diferencia entre errores de cálculo mecánico y lógica matemática.</li>
+                <li><strong>Atención/Conducta:</strong> Identifica lapsos de desconexión o aislamiento social.</li>
+            </ul>
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Niveles de Riesgo y Justificación</h3>
+            <ul>
+                <li>🟢 <strong>Riesgo Bajo:</strong> Fluctuaciones normales. (Ej. <em>"Baja puntual por inasistencia"</em>)</li>
+                <li>🟡 <strong>Riesgo Medio:</strong> Dificultad recurrente. (Ej. <em>"Estancamiento en suma con llevadas; alta frustración observada"</em>)</li>
+                <li>🔴 <strong>Riesgo Alto:</strong> Barrera significativa. (Ej. <em>"Rezago crónico y aislamiento social"</em>)</li>
+            </ul>
+        </div>
+
+        <!-- Sección 3 & 4 -->
+        <div class="grid-2">
+            <div class="card" style="border-left-color: #3B82F6;">
+                <h2>📊 3. Generación de Reportes</h2>
+                <p>Reportes automatizados con un enfoque empático, claro y accionable para el docente.</p>
+                <ul>
+                    <li><strong>Nivel de Desempeño:</strong> Gráficos radiales frente a hitos del grado.</li>
+                    <li><strong>Fortalezas:</strong> Destaca siempre primero los talentos naturales del estudiante.</li>
+                    <li><strong>Dificultades:</strong> Descritas como áreas de oportunidad constructivas.</li>
+                    <li><strong>Evolución:</strong> Línea de tiempo del progreso histórico.</li>
+                </ul>
+            </div>
+            
+            <div class="card" style="border-left-color: #10B981;">
+                <h2>🎯 4. Recomendaciones Pedagógicas</h2>
+                <p>La IA actúa como copiloto sugiriendo estrategias (Diseño Universal para el Aprendizaje).</p>
+                <ul>
+                    <li><strong>Apoyo Básico (Aula):</strong> Ej. <em>"Utilizar material concreto para matemáticas"</em>.</li>
+                    <li><strong>Intervención Intensiva:</strong> Ej. <em>"Tutoría de pares 10 minutos al día"</em>.</li>
+                    <li><strong>Enfoque Humanista:</strong> Ej. <em>"Realizar ejercicio de respiración antes de tareas complejas para reducir ansiedad"</em>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sección 5 y Extra: Simulación UI -->
+        <div class="simulation-box card" style="border-left-color: #F59E0B; background-color: #F8FAFC;">
+            <h2>🧩 Simulación de Interfaz (Caso de Estudio)</h2>
+            <p style="margin-bottom: 1.5rem;">Visualización simulada del "Dashboard del Estudiante" tras el análisis de datos de SIPED-IA.</p>
+            
+            <div class="student-profile">
+                <div class="avatar">ML</div>
+                <div>
+                    <h3 style="margin: 0; color: var(--dark);">Mateo L.</h3>
+                    <p style="margin: 0; font-size: 0.875rem; color: var(--text-muted);">3ro de Primaria - 8 años | Tutor: Prof. Juan Pérez</p>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="badge neutral">Fortaleza: Inteligencia Espacial</span>
+                        <span class="badge neutral">Talento: Artístico</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                <strong>💡 Estado de Alerta: Riesgo Medio en Lectoescritura</strong><br>
+                Correlación directa entre la disminución de la fluidez lectora (30 PPM) y observaciones de aislamiento emocional/ansiedad (llanto leve al pedirle lectura en público).
+            </div>
+
+            <div class="metric-cards">
+                <div class="metric-card success">
+                    <div class="metric-value">85/100</div>
+                    <div class="metric-label">Matemáticas (Avance Normal)</div>
+                </div>
+                <div class="metric-card warning">
+                    <div class="metric-value">45/100</div>
+                    <div class="metric-label">Lectoescritura (↓ 20 pts)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">30 PPM</div>
+                    <div class="metric-label">Fluidez Lectora (Estancamiento)</div>
+                </div>
+            </div>
+
+            <div class="recommendation-box">
+                <h4>🎯 Plan de Acción Recomendado (IA Copiloto)</h4>
+                
+                <strong style="display: block; margin-top: 1rem; color: #1E40AF;">Estrategias Básicas (Aula):</strong>
+                <ul>
+                    <li><strong>Suspensión temporal de lectura pública:</strong> Evitar lectura frente al grupo para reducir ansiedad inmediata.</li>
+                    <li><strong>Uso de fortalezas:</strong> Pedirle que dibuje la escena principal del cuento en lugar de resumen escrito para evaluar comprensión sin amenazarlo.</li>
+                </ul>
+
+                <strong style="display: block; margin-top: 1rem; color: #1E40AF;">Intervención Intensiva:</strong>
+                <ul>
+                    <li><strong>Lectura en susurros:</strong> Permitir que grabe su lectura en tablet en zona tranquila para evaluar decodificación.</li>
+                    <li><strong>Textos de interés:</strong> Proveer lecturas sobre arte o naturaleza con tipografía grande.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sección 6 -->
+        <div class="card" style="border-left-color: #64748B;">
+            <h2>⚖️ 6. Enfoque Ético</h2>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <strong>Prohibido Etiquetar:</strong> Lenguaje descriptivo y temporal (Ej. "Presenta inquietud motora", NO "Es hiperactivo").
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <strong>Privacidad por Diseño:</strong> Datos socioemocionales encriptados. Acceso restringido a psicopedagogía y tutor principal.
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <strong>El Docente al Mando:</strong> La IA propone, el docente dispone. La intuición y contexto humano tienen la última decisión antes de cualquier intervención.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Proyecto Evidencia - Desarrollado bajo enfoque humanista e inclusivo para el Colegio La Salle.</p>
+    </footer>
+
+    <!-- Botón Volver al Dashboard -->
+    <a href="../index.html" style="position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: white; padding: 1rem 1.5rem; border-radius: 9999px; text-decoration: none; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+        ← Volver al Simulador
+    </a>
+
+</body>
+</html>
